@@ -1,7 +1,5 @@
 # Elanco API
 
-<br/>
-
 ### Run This:
 
 ```
