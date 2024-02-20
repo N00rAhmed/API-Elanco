@@ -1,4 +1,5 @@
 // Import necessary modules
+const { query } = require('express');
 const sqlite3 = require('sqlite3');
 
 // Create a new SQLite database (replace 'your-database-file.db' with the actual database file)
@@ -67,7 +68,6 @@ async function averageStats(average) {
       throw error;
     }
     }
-
 
     
     async function averageStatsCanine_Two(average_canineTwo) {
@@ -224,7 +224,92 @@ async function averageStats(average) {
               throw error;
             }
             }
+
+            async function HighAndLowHeartRate_One(HeartRate_CanineOne) {
+              try {
+                const query = `
+                  SELECT MAX("HeartRate(bpm)") AS highest_heart_rate, MIN("HeartRate(bpm)") AS lowest_heart_rate
+                  FROM Canine_Activity_Data
+                  WHERE DogID = 'CANINE001';`
+                const parameters = HeartRate_CanineOne;
+                return await executeQuery(query, parameters);
+              } catch (error) {
+                console.error("Error executing query:", error);
+                throw error;
+              }
+            }
+      
+            async function HighAndLowHeartRate_Two(HeartRate_CanineTwo) {
+              try {
+                const query = `
+                  SELECT MAX("HeartRate(bpm)") AS highest_heart_rate, MIN("HeartRate(bpm)") AS lowest_heart_rate
+                  FROM Canine_Activity_Data
+                  WHERE DogID = 'CANINE002';`
+                const parameters = HeartRate_CanineTwo;
+                return await executeQuery(query, parameters);
+              } catch (error) {
+                console.error("Error executing query:", error);
+                throw error;
+              }
+            }
+      
+            async function HighAndLowHeartRate_Three(HeartRate_CanineThree) {
+              try {
+                const query = `
+                  SELECT MAX("HeartRate(bpm)") AS highest_heart_rate, MIN("HeartRate(bpm)") AS lowest_heart_rate
+                  FROM Canine_Activity_Data
+                  WHERE DogID = 'CANINE003';`
+                const parameters = HeartRate_CanineThree;
+                return await executeQuery(query, parameters);
+              } catch (error) {
+                console.error("Error executing query:", error);
+                throw error;
+              }
+            }
+      
+            async function HeartRateToSleep_One(HeartToSleep_CanineOne) {
+              try {
+                const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
+                FROM Canine_Activity_Data
+                WHERE DogID = 'CANINE001' AND BehaviourPattern = 'Sleeping'
+                GROUP BY DogID, BehaviourPattern;` 
+                const parameters = HeartToSleep_CanineOne;
+                return await executeQuery(query, parameters);
+              }
+              catch (error) {
+              console.error("Error executing query:", error);
+              throw error;
+            }
+          }
+      
+          async function HeartRateToWalk_One(HeartToWalk_CanineOne) {
+            try {
+              const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
+              FROM Canine_Activity_Data
+              WHERE DogID = 'CANINE001' AND BehaviourPattern = 'Walking'
+              GROUP BY DogID, BehaviourPattern;` 
+              const parameters = HeartToWalk_CanineOne;
+              return await executeQuery(query, parameters);
+            }
+            catch (error) {
+            console.error("Error executing query:", error);
+            throw error;
+          }
+        }
   
 
 // Export the all_data function
-module.exports = { averageStats, averageStatsCanine_One, averageStatsCanine_Two, averageStatsCanine_Three, averageEachDay_CanineOne, averageEachDay_CanineTwo, averageEachDay_CanineThree};
+module.exports = { 
+  averageStats, 
+  averageStatsCanine_One, 
+  averageStatsCanine_Two, 
+  averageStatsCanine_Three, 
+  averageEachDay_CanineOne, 
+  averageEachDay_CanineTwo, 
+  averageEachDay_CanineThree,
+  HighAndLowHeartRate_One,
+  HighAndLowHeartRate_Two,
+  HighAndLowHeartRate_Three,
+  HeartRateToSleep_One,
+  HeartRateToWalk_One,
+};
