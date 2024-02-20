@@ -62,4 +62,44 @@ router.get("/average_caninethree", function (req, res, next) {
     res.status(500).json({ error: "Internal Server Error" });
   });
 });
+
+
+router.get("/averageEachDayCanineOne", function (req, res, next) {
+  const averageEachDay_canineOne = req.query; // Replace 'alldata' with the actual query parameter name
+  sql.averageEachDay_CanineOne(averageEachDay_canineOne).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
+
+router.get("/averageEachDayCanineTwo", function (req, res, next) {
+  const averageEachDay_canineTwo = req.query; // Replace 'alldata' with the actual query parameter name
+  sql.averageEachDay_CanineTwo(averageEachDay_canineTwo).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
+
+
+router.get("/averageEachDayCanineThree", function (req, res, next) {
+  const averageEachDay_canineThree = req.query; // Replace 'alldata' with the actual query parameter name
+  sql.averageEachDay_CanineThree(averageEachDay_canineThree).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
+
+
 module.exports = router;

@@ -51,7 +51,9 @@ async function averageStats(average) {
       ROUND(AVG("Weight(kg)"), 1) AS average_weight,
       ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
       ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
-      ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps
+      ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
+      ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+      ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
       FROM Canine_Activity_Data WHERE DogID = 'CANINE001';`
       // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
       // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
@@ -76,7 +78,10 @@ async function averageStats(average) {
         ROUND(AVG("Weight(kg)"), 1) AS average_weight,
         ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
         ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
-        ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps
+        ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
+        ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+        ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
+  
         FROM Canine_Activity_Data WHERE DogID = 'CANINE002';`
         // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
         // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
@@ -102,7 +107,9 @@ async function averageStats(average) {
         ROUND(AVG("Weight(kg)"), 1) AS average_weight,
         ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
         ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
-        ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps
+        ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
+        ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+        ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
         FROM Canine_Activity_Data WHERE DogID = 'CANINE003';`
         // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
         // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
@@ -116,8 +123,105 @@ async function averageStats(average) {
         throw error;
       }
       }
+
+
+
+      async function averageEachDay_CanineOne(averageEachDay_canineOne) {
+        try {
+          const query = `SELECT
+          DogID,
+          Date,
+          ROUND(AVG("HeartRate(bpm)"), 1) AS average_value_heart_rate,
+          ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
+          ROUND(AVG("Weight(kg)"), 1) AS average_weight,
+          ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
+          ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
+          ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
+          ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+          ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
+  
+        FROM Canine_Activity_Data 
+        WHERE DogID = 'CANINE001'
+        GROUP BY Date;`
+          // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+          // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
+          
+      // SELECT AVG("HeartRate(bpm)") AS average_value FROM Canine_Activity_Data;
+      
+          const parameters = averageEachDay_canineOne;
+          return await executeQuery(query, parameters);
+        } catch (error) {
+          console.error("Error executing query:", error);
+          throw error;
+        }
+        }
   
   
 
+        async function averageEachDay_CanineTwo(averageEachDay_canineTwo) {
+          try {
+            const query = `SELECT
+            DogID,
+            Date,
+            ROUND(AVG("HeartRate(bpm)"), 1) AS average_value_heart_rate,
+            ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
+            ROUND(AVG("Weight(kg)"), 1) AS average_weight,
+            ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
+            ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
+            ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
+            ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+            ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
+    
+          FROM Canine_Activity_Data 
+          WHERE DogID = 'CANINE002'
+          GROUP BY Date;`
+            // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+            // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
+            
+        // SELECT AVG("HeartRate(bpm)") AS average_value FROM Canine_Activity_Data;
+        
+            const parameters = averageEachDay_canineTwo;
+            return await executeQuery(query, parameters);
+          } catch (error) {
+            console.error("Error executing query:", error);
+            throw error;
+          }
+          }
+
+
+
+
+
+          async function averageEachDay_CanineThree(averageEachDay_canineThree) {
+            try {
+              const query = `SELECT
+              DogID,
+              Date,
+              ROUND(AVG("HeartRate(bpm)"), 1) AS average_value_heart_rate,
+              ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
+              ROUND(AVG("Weight(kg)"), 1) AS average_weight,
+              ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
+              ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
+              ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
+              ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+              ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
+      
+            FROM Canine_Activity_Data 
+            WHERE DogID = 'CANINE003'
+            GROUP BY Date;`
+              // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+              // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
+              
+          // SELECT AVG("HeartRate(bpm)") AS average_value FROM Canine_Activity_Data;
+          
+              const parameters = averageEachDay_canineThree;
+              return await executeQuery(query, parameters);
+            } catch (error) {
+              console.error("Error executing query:", error);
+              throw error;
+            }
+            }
+  
+
 // Export the all_data function
-module.exports = { averageStats, averageStatsCanine_One, averageStatsCanine_Two, averageStatsCanine_Three };
+module.exports = { averageStats, averageStatsCanine_One, averageStatsCanine_Two, averageStatsCanine_Three, averageEachDay_CanineOne, averageEachDay_CanineTwo, averageEachDay_CanineThree};
