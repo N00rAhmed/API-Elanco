@@ -26,4 +26,16 @@ router.get("/average", function (req, res, next) {
   });
 });
 
+
+
+router.get("/average_canineone", function (req, res, next) {
+  const average_canineOne = req.query; // Replace 'alldata' with the actual query parameter name
+  sql.averageStatsCanine_One(average_canineOne).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
 module.exports = router;
