@@ -65,7 +65,31 @@ async function averageStats(average) {
       throw error;
     }
     }
+
+    async function averageStatsCanine_Two(average_canineTwo) {
+      try {
+        const query = `SELECT
+        ROUND(AVG("HeartRate(bpm)"), 1) AS average_value_heart_rate,
+        ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
+        ROUND(AVG("Weight(kg)"), 1) AS average_weight,
+        ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
+        ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
+        ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps
+        FROM Canine_Activity_Data WHERE DogID = 'CANINE002';`
+        // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+        // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
+        
+    // SELECT AVG("HeartRate(bpm)") AS average_value FROM Canine_Activity_Data;
+    
+        const parameters = average_canineTwo;
+        return await executeQuery(query, parameters);
+      } catch (error) {
+        console.error("Error executing query:", error);
+        throw error;
+      }
+    }
   
 
 // Export the all_data function
-module.exports = { averageStats, averageStatsCanine_One };
+module.exports = { averageStats, averageStatsCanine_One, averageStatsCanine_Two};
+
