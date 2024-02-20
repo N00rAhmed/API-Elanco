@@ -28,9 +28,9 @@ router.get("/average", function (req, res, next) {
 
 
 
-router.get("/average_canineone", function (req, res, next) {
-  const average_canineOne = req.query; // Replace 'alldata' with the actual query parameter name
-  sql.averageStatsCanine_One(average_canineOne).then((result) => {
+router.get("/average_caninethree", function (req, res, next) {
+  const average_canineThree = req.query; // Replace 'alldata' with the actual query parameter name
+  sql.averageStatsCanine_Three(average_canineThree).then((result) => {
     res.json(result);
   }).catch((error) => {
     // Handle the error appropriately
