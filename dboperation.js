@@ -281,6 +281,36 @@ async function averageStats(average) {
               throw error;
             }
           }
+
+          async function HeartRateToSleep_Two(HeartToSleep_CanineTwo) {
+            try {
+              const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
+              FROM Canine_Activity_Data
+              WHERE DogID = 'CANINE002' AND BehaviourPattern = 'Sleeping'
+              GROUP BY DogID, BehaviourPattern;` 
+              const parameters = HeartToSleep_CanineTwo;
+              return await executeQuery(query, parameters);
+            }
+            catch (error) {
+            console.error("Error executing query:", error);
+            throw error;
+          }
+        }
+
+        async function HeartRateToSleep_Three(HeartToSleep_CanineThree) {
+          try {
+            const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
+            FROM Canine_Activity_Data
+            WHERE DogID = 'CANINE003' AND BehaviourPattern = 'Sleeping'
+            GROUP BY DogID, BehaviourPattern;` 
+            const parameters = HeartToSleep_CanineThree;
+            return await executeQuery(query, parameters);
+          }
+          catch (error) {
+          console.error("Error executing query:", error);
+          throw error;
+        }
+      }
       
           async function HeartRateToWalk_One(HeartToWalk_CanineOne) {
             try {
@@ -296,7 +326,81 @@ async function averageStats(average) {
             throw error;
           }
         }
+
+        async function HeartRateToWalk_Two(HeartToWalk_CanineTwo) {
+          try {
+            const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
+            FROM Canine_Activity_Data
+            WHERE DogID = 'CANINE002' AND BehaviourPattern = 'Walking'
+            GROUP BY DogID, BehaviourPattern;` 
+            const parameters = HeartToWalk_CanineTwo;
+            return await executeQuery(query, parameters);
+          }
+          catch (error) {
+          console.error("Error executing query:", error);
+          throw error;
+        }
+      }
+
+      async function HeartRateToWalk_Three(HeartToWalk_CanineThree) {
+        try {
+          const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
+          FROM Canine_Activity_Data
+          WHERE DogID = 'CANINE003' AND BehaviourPattern = 'Walking'
+          GROUP BY DogID, BehaviourPattern;` 
+          const parameters = HeartToWalk_CanineThree;
+          return await executeQuery(query, parameters);
+        }
+        catch (error) {
+        console.error("Error executing query:", error);
+        throw error;
+      }
+    }
   
+        async function HeartRateToNormal_One(HeartToNormal_CanineOne) {
+          try {
+            const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
+            FROM Canine_Activity_Data
+            WHERE DogID = 'CANINE001' AND BehaviourPattern = 'Normal'
+            GROUP BY DogID, BehaviourPattern;` 
+            const parameters = HeartToNormal_CanineOne;
+            return await executeQuery(query, parameters);
+          }
+          catch (error) {
+          console.error("Error executing query:", error);
+          throw error;
+        }
+      }
+
+      async function HeartRateToNormal_Two(HeartToNormal_CanineTwo) {
+        try {
+          const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
+          FROM Canine_Activity_Data
+          WHERE DogID = 'CANINE002' AND BehaviourPattern = 'Normal'
+          GROUP BY DogID, BehaviourPattern;` 
+          const parameters = HeartToNormal_CanineTwo;
+          return await executeQuery(query, parameters);
+        }
+        catch (error) {
+        console.error("Error executing query:", error);
+        throw error;
+      }
+    }
+
+    async function HeartRateToNormal_Three(HeartToNormal_CanineThree) {
+      try {
+        const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
+        FROM Canine_Activity_Data
+        WHERE DogID = 'CANINE003' AND BehaviourPattern = 'Normal'
+        GROUP BY DogID, BehaviourPattern;` 
+        const parameters = HeartToNormal_CanineThree;
+        return await executeQuery(query, parameters);
+      }
+      catch (error) {
+      console.error("Error executing query:", error);
+      throw error;
+    }
+  }
 
 // Export the all_data function
 module.exports = { 
@@ -311,5 +415,12 @@ module.exports = {
   HighAndLowHeartRate_Two,
   HighAndLowHeartRate_Three,
   HeartRateToSleep_One,
+  HeartRateToSleep_Two,
+  HeartRateToSleep_Three,
   HeartRateToWalk_One,
+  HeartRateToWalk_Two,
+  HeartRateToWalk_Three,
+  HeartRateToNormal_One,
+  HeartRateToNormal_Two,
+  HeartRateToNormal_Three,
 };
