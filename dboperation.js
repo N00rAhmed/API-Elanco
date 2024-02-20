@@ -139,10 +139,11 @@ async function averageStats(average) {
           ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
           ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
           ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
-  
-        FROM Canine_Activity_Data 
-        WHERE DogID = 'CANINE001'
-        GROUP BY Date;`
+      FROM Canine_Activity_Data 
+      WHERE DogID = 'CANINE001' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
+      GROUP BY DogID, Date
+      ORDER BY CAST(SUBSTR(Date, 7, 4) AS INTEGER), CAST(SUBSTR(Date, 4, 2) AS INTEGER), CAST(SUBSTR(Date, 1, 2) AS INTEGER);
+      `
           // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
           // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
           
@@ -171,10 +172,11 @@ async function averageStats(average) {
             ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
             ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
             ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
-    
-          FROM Canine_Activity_Data 
-          WHERE DogID = 'CANINE002'
-          GROUP BY Date;`
+        FROM Canine_Activity_Data 
+        WHERE DogID = 'CANINE002' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
+        GROUP BY DogID, Date
+        ORDER BY CAST(SUBSTR(Date, 7, 4) AS INTEGER), CAST(SUBSTR(Date, 4, 2) AS INTEGER), CAST(SUBSTR(Date, 1, 2) AS INTEGER);
+        `
             // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
             // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
             
@@ -205,10 +207,11 @@ async function averageStats(average) {
               ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
               ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
               ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
-      
-            FROM Canine_Activity_Data 
-            WHERE DogID = 'CANINE003'
-            GROUP BY Date;`
+          FROM Canine_Activity_Data 
+          WHERE DogID = 'CANINE003' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
+          GROUP BY DogID, Date
+          ORDER BY CAST(SUBSTR(Date, 7, 4) AS INTEGER), CAST(SUBSTR(Date, 4, 2) AS INTEGER), CAST(SUBSTR(Date, 1, 2) AS INTEGER);
+          `
               // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
               // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
               
