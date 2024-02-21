@@ -402,6 +402,73 @@ async function averageStats(average) {
     }
   }
 
+
+
+  async function BehaviourPatternActionsAverage(behaviourPatternActionsAverage) {
+    try {
+      const query = `SELECT
+      DogID,
+      AVG(WalkingHours) AS AverageWalkingHours,
+      AVG(EatingHours) AS AverageEatingHours,
+      AVG(NormalHours) AS AverageNormalHours,
+      AVG(HoursSlept) AS AverageHoursSlept
+    FROM
+      (
+          SELECT
+              DogID,
+              Date,
+              SUM(
+                  CASE
+                      WHEN BehaviourPattern = 'Walking' THEN 1
+                      ELSE 0
+                  END
+              ) AS WalkingHours,
+              SUM(
+                  CASE
+                      WHEN BehaviourPattern = 'Eating' THEN 1
+                      ELSE 0
+                  END
+              ) AS EatingHours,
+              SUM(
+                  CASE
+                      WHEN BehaviourPattern = 'Normal' THEN 1
+                      ELSE 0
+                  END
+              ) AS NormalHours,
+              SUM(
+                  CASE
+                      WHEN BehaviourPattern = 'Sleeping' THEN 1
+                      ELSE 0
+                  END
+              ) AS HoursSlept
+          FROM
+              Canine_Activity_Data
+          GROUP BY
+              DogID,
+              Date
+      ) AS T
+    GROUP BY
+      DogID
+    ORDER BY
+      DogID;
+    `
+      const parameters = behaviourPatternActionsAverage;
+      return await executeQuery(query, parameters);
+    }
+    catch (error) {
+    console.error("Error executing query:", error);
+    throw error;
+  }
+}
+
+
+
+  
+
+
+
+  
+
 // Export the all_data function
 module.exports = { 
   averageStats, 
@@ -423,4 +490,5 @@ module.exports = {
   HeartRateToNormal_One,
   HeartRateToNormal_Two,
   HeartRateToNormal_Three,
+  BehaviourPatternActionsAverage
 };

@@ -232,4 +232,15 @@ router.get("/HeartToNormal_CanineThree", function (req, res, next) {
   });
 });
 
+router.get("/BehaviourPatternActionsAverage", function (req, res, next) {
+  const behaviourPatternActionsAverage = req.query; // Corrected to use 'HeartRate_CanineOne'
+  sql.BehaviourPatternActionsAverage(behaviourPatternActionsAverage).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
 module.exports = router;
