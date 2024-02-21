@@ -232,9 +232,9 @@ router.get("/HeartToNormal_CanineThree", function (req, res, next) {
   });
 });
 
-router.get("/BehaviourPatternActionsAverage", function (req, res, next) {
-  const behaviourPatternActionsAverage = req.query; // Corrected to use 'HeartRate_CanineOne'
-  sql.BehaviourPatternActionsAverage(behaviourPatternActionsAverage).then((result) => {
+router.get("/behaviourPatternActionsAverageCanineOne", function (req, res, next) {
+  const behaviourPatternActionsAverageCanineOne = req.query; // Corrected to use 'HeartRate_CanineOne'
+  sql.BehaviourPatternActionsAverageCanineOne(behaviourPatternActionsAverageCanineOne).then((result) => {
     res.json(result);
   }).catch((error) => {
     // Handle the error appropriately
@@ -242,5 +242,33 @@ router.get("/BehaviourPatternActionsAverage", function (req, res, next) {
     res.status(500).json({ error: "Internal Server Error" });
   });
 });
+
+
+router.get("/behaviourPatternActionsAverageCanineTwo", function (req, res, next) {
+  const behaviourPatternActionsAverageCanineTwo = req.query; // Corrected to use 'HeartRate_CanineOne'
+  sql.BehaviourPatternActionsAverageCanineTwo(behaviourPatternActionsAverageCanineTwo).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
+
+
+router.get("/behaviourPatternActionsAverageCanineThree", function (req, res, next) {
+  const behaviourPatternActionsAverageCanineThree = req.query; // Corrected to use 'HeartRate_CanineOne'
+  sql.BehaviourPatternActionsAverageCanineThree(behaviourPatternActionsAverageCanineThree).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
+
+
 
 module.exports = router;

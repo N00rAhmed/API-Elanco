@@ -404,7 +404,7 @@ async function averageStats(average) {
 
 
 
-  async function BehaviourPatternActionsAverage(behaviourPatternActionsAverage) {
+  async function BehaviourPatternActionsAverageCanineOne(behaviourPatternActionsAverageCanineOne) {
     try {
       const query = `SELECT
       DogID,
@@ -443,6 +443,8 @@ async function averageStats(average) {
               ) AS HoursSlept
           FROM
               Canine_Activity_Data
+          WHERE
+              DogID = 'CANINE001'
           GROUP BY
               DogID,
               Date
@@ -451,8 +453,9 @@ async function averageStats(average) {
       DogID
     ORDER BY
       DogID;
+    
     `
-      const parameters = behaviourPatternActionsAverage;
+      const parameters = behaviourPatternActionsAverageCanineOne;
       return await executeQuery(query, parameters);
     }
     catch (error) {
@@ -463,8 +466,128 @@ async function averageStats(average) {
 
 
 
+async function BehaviourPatternActionsAverageCanineTwo(behaviourPatternActionsAverageCanineTwo) {
+  try {
+    const query = `SELECT
+    DogID,
+    AVG(WalkingHours) AS AverageWalkingHours,
+    AVG(EatingHours) AS AverageEatingHours,
+    AVG(NormalHours) AS AverageNormalHours,
+    AVG(HoursSlept) AS AverageHoursSlept
+  FROM
+    (
+        SELECT
+            DogID,
+            Date,
+            SUM(
+                CASE
+                    WHEN BehaviourPattern = 'Walking' THEN 1
+                    ELSE 0
+                END
+            ) AS WalkingHours,
+            SUM(
+                CASE
+                    WHEN BehaviourPattern = 'Eating' THEN 1
+                    ELSE 0
+                END
+            ) AS EatingHours,
+            SUM(
+                CASE
+                    WHEN BehaviourPattern = 'Normal' THEN 1
+                    ELSE 0
+                END
+            ) AS NormalHours,
+            SUM(
+                CASE
+                    WHEN BehaviourPattern = 'Sleeping' THEN 1
+                    ELSE 0
+                END
+            ) AS HoursSlept
+        FROM
+            Canine_Activity_Data
+        WHERE
+            DogID = 'CANINE002'
+        GROUP BY
+            DogID,
+            Date
+    ) AS T
+  GROUP BY
+    DogID
+  ORDER BY
+    DogID;
   
+  `
+    const parameters = behaviourPatternActionsAverageCanineTwo;
+    return await executeQuery(query, parameters);
+  }
+  catch (error) {
+  console.error("Error executing query:", error);
+  throw error;
+}
+}
 
+
+
+
+async function BehaviourPatternActionsAverageCanineThree(behaviourPatternActionsAverageCanineThree) {
+  try {
+    const query = `SELECT
+    DogID,
+    AVG(WalkingHours) AS AverageWalkingHours,
+    AVG(EatingHours) AS AverageEatingHours,
+    AVG(NormalHours) AS AverageNormalHours,
+    AVG(HoursSlept) AS AverageHoursSlept
+  FROM
+    (
+        SELECT
+            DogID,
+            Date,
+            SUM(
+                CASE
+                    WHEN BehaviourPattern = 'Walking' THEN 1
+                    ELSE 0
+                END
+            ) AS WalkingHours,
+            SUM(
+                CASE
+                    WHEN BehaviourPattern = 'Eating' THEN 1
+                    ELSE 0
+                END
+            ) AS EatingHours,
+            SUM(
+                CASE
+                    WHEN BehaviourPattern = 'Normal' THEN 1
+                    ELSE 0
+                END
+            ) AS NormalHours,
+            SUM(
+                CASE
+                    WHEN BehaviourPattern = 'Sleeping' THEN 1
+                    ELSE 0
+                END
+            ) AS HoursSlept
+        FROM
+            Canine_Activity_Data
+        WHERE
+            DogID = 'CANINE003'
+        GROUP BY
+            DogID,
+            Date
+    ) AS T
+  GROUP BY
+    DogID
+  ORDER BY
+    DogID;
+  
+  `
+    const parameters = behaviourPatternActionsAverageCanineThree;
+    return await executeQuery(query, parameters);
+  }
+  catch (error) {
+  console.error("Error executing query:", error);
+  throw error;
+}
+}
 
 
   
@@ -490,5 +613,7 @@ module.exports = {
   HeartRateToNormal_One,
   HeartRateToNormal_Two,
   HeartRateToNormal_Three,
-  BehaviourPatternActionsAverage
+  BehaviourPatternActionsAverageCanineOne,
+  BehaviourPatternActionsAverageCanineTwo,
+  BehaviourPatternActionsAverageCanineThree
 };
