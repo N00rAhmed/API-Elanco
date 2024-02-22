@@ -590,7 +590,90 @@ async function BehaviourPatternActionsAverageCanineThree(behaviourPatternActions
 }
 
 
-  
+async function monthAverage_canineone(MonthlyAverageCanineOne) {
+  try {
+    const query = `SELECT
+    DogID,
+    SUBSTR(Date, 4, 7) AS Month_Year,
+    ROUND(AVG("HeartRate(bpm)"), 1) AS average_value_heart_rate,
+    ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
+    ROUND(AVG("Weight(kg)"), 1) AS average_weight,
+    ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
+    ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
+    ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
+    ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+    ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
+FROM Canine_Activity_Data 
+WHERE DogID = 'CANINE001' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
+GROUP BY DogID, Month_Year
+ORDER BY SUBSTR(Date, 7, 4), SUBSTR(Date, 4, 2);;
+
+` 
+    const parameters = MonthlyAverageCanineOne;
+    return await executeQuery(query, parameters);
+  }
+  catch (error) {
+  console.error("Error executing query:", error);
+  throw error;
+}
+}
+
+async function monthAverage_caninetwo(MonthlyAverageCanineTwo) {
+  try {
+    const query = `SELECT
+    DogID,
+    SUBSTR(Date, 4, 7) AS Month_Year,
+    ROUND(AVG("HeartRate(bpm)"), 1) AS average_value_heart_rate,
+    ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
+    ROUND(AVG("Weight(kg)"), 1) AS average_weight,
+    ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
+    ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
+    ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
+    ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+    ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
+FROM Canine_Activity_Data 
+WHERE DogID = 'CANINE002' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
+GROUP BY DogID, Month_Year
+ORDER BY SUBSTR(Date, 7, 4), SUBSTR(Date, 4, 2);;
+
+` 
+    const parameters = MonthlyAverageCanineTwo;
+    return await executeQuery(query, parameters);
+  }
+  catch (error) {
+  console.error("Error executing query:", error);
+  throw error;
+}
+}
+
+async function monthAverage_caninethree(MonthlyAverageCanineThree) {
+  try {
+    const query = `SELECT
+    DogID,
+    SUBSTR(Date, 4, 7) AS Month_Year,
+    ROUND(AVG("HeartRate(bpm)"), 1) AS average_value_heart_rate,
+    ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
+    ROUND(AVG("Weight(kg)"), 1) AS average_weight,
+    ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
+    ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
+    ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
+    ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+    ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
+FROM Canine_Activity_Data 
+WHERE DogID = 'CANINE003' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
+GROUP BY DogID, Month_Year
+ORDER BY SUBSTR(Date, 7, 4), SUBSTR(Date, 4, 2);;
+
+` 
+    const parameters = MonthlyAverageCanineThree;
+    return await executeQuery(query, parameters);
+  }
+  catch (error) {
+  console.error("Error executing query:", error);
+  throw error;
+}
+}
+
 
 // Export the all_data function
 module.exports = { 
@@ -615,5 +698,8 @@ module.exports = {
   HeartRateToNormal_Three,
   BehaviourPatternActionsAverageCanineOne,
   BehaviourPatternActionsAverageCanineTwo,
-  BehaviourPatternActionsAverageCanineThree
+  BehaviourPatternActionsAverageCanineThree,
+  monthAverage_canineone,
+  monthAverage_caninetwo,
+  monthAverage_caninethree
 };
