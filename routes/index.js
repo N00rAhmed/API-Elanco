@@ -268,7 +268,37 @@ router.get("/behaviourPatternActionsAverageCanineThree", function (req, res, nex
   });
 });
 
+router.get("/MonthlyAverageCanineOne", function (req, res, next) {
+  const MonthlyAverageCanineOne = req.query;
+  sql.monthAverage_canineone(MonthlyAverageCanineOne).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
 
+router.get("/MonthlyAverageCanineTwo", function (req, res, next) {
+  const MonthlyAverageCanineTwo = req.query; 
+  sql.monthAverage_caninetwo(MonthlyAverageCanineTwo).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
 
+router.get("/MonthlyAverageCanineThree", function (req, res, next) {
+  const MonthlyAverageCanineThree = req.query; 
+  sql.monthAverage_caninethree(MonthlyAverageCanineThree).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
 
 module.exports = router;
