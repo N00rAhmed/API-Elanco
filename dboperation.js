@@ -408,10 +408,10 @@ async function averageStats(average) {
     try {
       const query = `SELECT
       DogID,
-      AVG(WalkingHours) AS AverageWalkingHours,
-      AVG(EatingHours) AS AverageEatingHours,
-      AVG(NormalHours) AS AverageNormalHours,
-      AVG(HoursSlept) AS AverageHoursSlept
+      ROUND(AVG(WalkingHours), 1) AS AverageWalkingHours,
+    ROUND(AVG(EatingHours),1) AS AverageEatingHours,
+    ROUND(AVG(NormalHours),1) AS AverageNormalHours,
+    ROUND(AVG(HoursSlept),1) AS AverageHoursSlept
     FROM
       (
           SELECT
@@ -470,10 +470,10 @@ async function BehaviourPatternActionsAverageCanineTwo(behaviourPatternActionsAv
   try {
     const query = `SELECT
     DogID,
-    AVG(WalkingHours) AS AverageWalkingHours,
-    AVG(EatingHours) AS AverageEatingHours,
-    AVG(NormalHours) AS AverageNormalHours,
-    AVG(HoursSlept) AS AverageHoursSlept
+    ROUND(AVG(WalkingHours), 1) AS AverageWalkingHours,
+    ROUND(AVG(EatingHours),1) AS AverageEatingHours,
+    ROUND(AVG(NormalHours),1) AS AverageNormalHours,
+    ROUND(AVG(HoursSlept),1) AS AverageHoursSlept
   FROM
     (
         SELECT
@@ -533,10 +533,10 @@ async function BehaviourPatternActionsAverageCanineThree(behaviourPatternActions
   try {
     const query = `SELECT
     DogID,
-    AVG(WalkingHours) AS AverageWalkingHours,
-    AVG(EatingHours) AS AverageEatingHours,
-    AVG(NormalHours) AS AverageNormalHours,
-    AVG(HoursSlept) AS AverageHoursSlept
+    ROUND(AVG(WalkingHours), 1) AS AverageWalkingHours,
+    ROUND(AVG(EatingHours),1) AS AverageEatingHours,
+    ROUND(AVG(NormalHours),1) AS AverageNormalHours,
+    ROUND(AVG(HoursSlept),1) AS AverageHoursSlept
   FROM
     (
         SELECT
