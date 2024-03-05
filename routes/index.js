@@ -301,4 +301,37 @@ router.get("/MonthlyAverageCanineThree", function (req, res, next) {
   });
 });
 
+router.get("/SeasonAverageCanineOne", function (req, res, next) {
+  const SeasonAverageCanineOne = req.query; 
+  sql.seasonAverage_canineone(SeasonAverageCanineOne).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
+router.get("/SeasonAverageCanineTwo", function (req, res, next) {
+  const SeasonAverageCanineTwo = req.query; 
+  sql.seasonAverage_caninetwo(SeasonAverageCanineTwo).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
+router.get("/SeasonAverageCanineThree", function (req, res, next) {
+  const SeasonAverageCanineThree = req.query; 
+  sql.seasonAverage_caninethree(SeasonAverageCaninethree).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
 module.exports = router;

@@ -674,6 +674,105 @@ ORDER BY SUBSTR(Date, 7, 4), SUBSTR(Date, 4, 2);;
 }
 }
 
+async function seasonAverage_canineone(SeasonAverageCanineOne) {
+  try {
+    const query = `SELECT
+    substr("Date", 7, 4) AS Year,
+    CASE 
+        WHEN substr("Date", 4, 2) IN ('12', '01', '02') THEN 'Winter'
+        WHEN substr("Date", 4, 2) IN ('03', '04', '05') THEN 'Spring'
+        WHEN substr("Date", 4, 2) IN ('06', '07', '08') THEN 'Summer'
+        WHEN substr("Date", 4, 2) IN ('09', '10', '11') THEN 'Fall'
+    END AS Season,
+    AVG("Weight(kg)") AS AvgWeight,
+    AVG("ActivityLevel(steps)") AS AvgActivityLevel,
+    AVG("HeartRate(bpm)") AS AvgHeartRate,
+    AVG("CalorieBurn") AS AvgCalorieBurn,
+    AVG("Temperature(C)") AS AvgTemperature,
+    AVG("FoodIntake(calories)") AS AvgFoodIntake,
+    AVG("WaterIntake(ml)") AS AvgWaterIntake,
+    AVG("BreathingRate(breaths/min)") AS AvgBreathingRate
+FROM
+    Canine_Activity_Data
+WHERE
+    DogID = 'CANINE001'
+GROUP BY
+    Year, Season;` 
+    const parameters = SeasonAverageCanineOne;
+    return await executeQuery(query, parameters);
+  }
+  catch (error) {
+  console.error("Error executing query:", error);
+  throw error;
+}
+}
+
+async function seasonAverage_caninetwo(SeasonAverageCanineTwo) {
+  try {
+    const query = `SELECT
+    substr("Date", 7, 4) AS Year,
+    CASE 
+        WHEN substr("Date", 4, 2) IN ('12', '01', '02') THEN 'Winter'
+        WHEN substr("Date", 4, 2) IN ('03', '04', '05') THEN 'Spring'
+        WHEN substr("Date", 4, 2) IN ('06', '07', '08') THEN 'Summer'
+        WHEN substr("Date", 4, 2) IN ('09', '10', '11') THEN 'Fall'
+    END AS Season,
+    AVG("Weight(kg)") AS AvgWeight,
+    AVG("ActivityLevel(steps)") AS AvgActivityLevel,
+    AVG("HeartRate(bpm)") AS AvgHeartRate,
+    AVG("CalorieBurn") AS AvgCalorieBurn,
+    AVG("Temperature(C)") AS AvgTemperature,
+    AVG("FoodIntake(calories)") AS AvgFoodIntake,
+    AVG("WaterIntake(ml)") AS AvgWaterIntake,
+    AVG("BreathingRate(breaths/min)") AS AvgBreathingRate
+FROM
+    Canine_Activity_Data
+WHERE
+    DogID = 'CANINE002'
+GROUP BY
+    Year, Season;` 
+    const parameters = SeasonAverageCanineTwo;
+    return await executeQuery(query, parameters);
+  }
+  catch (error) {
+  console.error("Error executing query:", error);
+  throw error;
+}
+}
+
+async function seasonAverage_caninethree(SeasonAverageCanineThree) {
+  try {
+    const query = `SELECT
+    substr("Date", 7, 4) AS Year,
+    CASE 
+        WHEN substr("Date", 4, 2) IN ('12', '01', '02') THEN 'Winter'
+        WHEN substr("Date", 4, 2) IN ('03', '04', '05') THEN 'Spring'
+        WHEN substr("Date", 4, 2) IN ('06', '07', '08') THEN 'Summer'
+        WHEN substr("Date", 4, 2) IN ('09', '10', '11') THEN 'Fall'
+    END AS Season,
+    AVG("Weight(kg)") AS AvgWeight,
+    AVG("ActivityLevel(steps)") AS AvgActivityLevel,
+    AVG("HeartRate(bpm)") AS AvgHeartRate,
+    AVG("CalorieBurn") AS AvgCalorieBurn,
+    AVG("Temperature(C)") AS AvgTemperature,
+    AVG("FoodIntake(calories)") AS AvgFoodIntake,
+    AVG("WaterIntake(ml)") AS AvgWaterIntake,
+    AVG("BreathingRate(breaths/min)") AS AvgBreathingRate
+FROM
+    Canine_Activity_Data
+WHERE
+    DogID = 'CANINE003'
+GROUP BY
+    Year, Season;` 
+    const parameters = SeasonAverageCanineThree;
+    return await executeQuery(query, parameters);
+  }
+  catch (error) {
+  console.error("Error executing query:", error);
+  throw error;
+}
+}
+
 
 // Export the all_data function
 module.exports = { 
@@ -701,5 +800,8 @@ module.exports = {
   BehaviourPatternActionsAverageCanineThree,
   monthAverage_canineone,
   monthAverage_caninetwo,
-  monthAverage_caninethree
+  monthAverage_caninethree,
+  seasonAverage_canineone,
+  seasonAverage_caninetwo,
+  seasonAverage_caninethree
 };
