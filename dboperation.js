@@ -774,6 +774,88 @@ GROUP BY
 }
 
 
+async function weeklyAverage_canineone(weeklyAverageCanineOne) {
+  try {
+    const query = `SELECT 
+    strftime('%Y-%W', date(substr("Date", 7, 4) || '-' || substr("Date", 4, 2) || '-' || substr("Date", 1, 2))) AS Year_Week,
+    SUM("Weight(kg)") AS Total_Weight,
+    AVG("ActivityLevel(steps)") AS Avg_Activity_Level,
+    AVG("HeartRate(bpm)") AS Avg_Heart_Rate,
+    SUM("CalorieBurn") AS Total_Calorie_Burn,
+    AVG("Temperature(C)") AS Avg_Temperature,
+    SUM("FoodIntake(calories)") AS Total_Food_Intake,
+    SUM("WaterIntake(ml)") AS Total_Water_Intake,
+    AVG("BreathingRate(breaths/min)") AS Avg_Breathing_Rate
+FROM 
+    "Canine_Activity_Data"
+WHERE
+    DogID = 'CANINE001'
+GROUP BY 
+    Year_Week;` 
+    const parameters = weeklyAverageCanineOne;
+    return await executeQuery(query, parameters);
+  }
+  catch (error) {
+  console.error("Error executing query:", error);
+  throw error;
+}
+}
+
+async function weeklyAverage_caninetwo(weeklyAverageCanineTwo) {
+  try {
+    const query = `SELECT 
+    strftime('%Y-%W', date(substr("Date", 7, 4) || '-' || substr("Date", 4, 2) || '-' || substr("Date", 1, 2))) AS Year_Week,
+    SUM("Weight(kg)") AS Total_Weight,
+    AVG("ActivityLevel(steps)") AS Avg_Activity_Level,
+    AVG("HeartRate(bpm)") AS Avg_Heart_Rate,
+    SUM("CalorieBurn") AS Total_Calorie_Burn,
+    AVG("Temperature(C)") AS Avg_Temperature,
+    SUM("FoodIntake(calories)") AS Total_Food_Intake,
+    SUM("WaterIntake(ml)") AS Total_Water_Intake,
+    AVG("BreathingRate(breaths/min)") AS Avg_Breathing_Rate
+FROM 
+    "Canine_Activity_Data"
+WHERE
+    DogID = 'CANINE002'
+GROUP BY 
+    Year_Week;` 
+    const parameters = weeklyAverageCanineTwo;
+    return await executeQuery(query, parameters);
+  }
+  catch (error) {
+  console.error("Error executing query:", error);
+  throw error;
+}
+}
+
+async function weeklyAverage_caninethree(weeklyAverageCanineThree) {
+  try {
+    const query = `SELECT 
+    strftime('%Y-%W', date(substr("Date", 7, 4) || '-' || substr("Date", 4, 2) || '-' || substr("Date", 1, 2))) AS Year_Week,
+    SUM("Weight(kg)") AS Total_Weight,
+    AVG("ActivityLevel(steps)") AS Avg_Activity_Level,
+    AVG("HeartRate(bpm)") AS Avg_Heart_Rate,
+    SUM("CalorieBurn") AS Total_Calorie_Burn,
+    AVG("Temperature(C)") AS Avg_Temperature,
+    SUM("FoodIntake(calories)") AS Total_Food_Intake,
+    SUM("WaterIntake(ml)") AS Total_Water_Intake,
+    AVG("BreathingRate(breaths/min)") AS Avg_Breathing_Rate
+FROM 
+    "Canine_Activity_Data"
+WHERE
+    DogID = 'CANINE003'
+GROUP BY 
+    Year_Week;` 
+    const parameters = weeklyAverageCanineThree;
+    return await executeQuery(query, parameters);
+  }
+  catch (error) {
+  console.error("Error executing query:", error);
+  throw error;
+}
+}
+
+
 // Export the all_data function
 module.exports = { 
   averageStats, 
@@ -803,5 +885,8 @@ module.exports = {
   monthAverage_caninethree,
   seasonAverage_canineone,
   seasonAverage_caninetwo,
-  seasonAverage_caninethree
+  seasonAverage_caninethree,
+  weeklyAverage_canineone,
+  weeklyAverage_caninetwo,
+  weeklyAverage_caninethree
 };

@@ -334,4 +334,37 @@ router.get("/SeasonAverageCanineThree", function (req, res, next) {
   });
 });
 
+router.get("/weeklyAverageCanineOne", function (req, res, next) {
+  const weeklyAverageCanineOne = req.query; 
+  sql.weeklyAverage_canineone(weeklyAverageCanineOne).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
+router.get("/weeklyAverageCanineTwo", function (req, res, next) {
+  const weeklyAverageCanineTwo = req.query; 
+  sql.weeklyAverage_caninetwo(weeklyAverageCanineTwo).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
+router.get("/weeklyAverageCanineThree", function (req, res, next) {
+  const weeklyAverageCanineThree = req.query; 
+  sql.weeklyAverage_caninethree(weeklyAverageCanineThree).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
 module.exports = router;
