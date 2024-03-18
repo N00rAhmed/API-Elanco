@@ -1,22 +1,45 @@
 // Import necessary modules
+var config = require("./dbconfig");
+
 const { query } = require('express');
 const sqlite3 = require('sqlite3');
 
-// Create a new SQLite database (replace 'your-database-file.db' with the actual database file)
-const db = new sqlite3.Database('Elanco.db');
+const db = new sqlite3.Database(config.DB, (err) => {
+  if (err) {
+     console.error(err.message);
+  }
+  console.log('Connected to the Elanco database.');
+ });
 
-// Define the executeQuery function
-function executeQuery(query, parameters) {
-  return new Promise((resolve, reject) => {
-    db.all(query, parameters, (err, rows) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(rows);
-      }
-    });
-  });
+
+
+ async function getdata() {
+  try {
+    let pool = await sql.connect(config);
+    console.log("sql server connected...");
+  } catch (error) {
+console.log(" mathus-error :" + error);
+  }
 }
+
+
+
+
+
+ async function executeQuery(query, parameters = []) {
+  return new Promise((resolve, reject) => {
+     db.all(query, parameters, (err, rows) => {
+       if (err) {
+         reject(err);
+       } else {
+         resolve(rows);
+       }
+     });
+  });
+ }
+ 
+
+
 
 // Define the all_data function
 async function averageStats(average) {
@@ -858,6 +881,7 @@ GROUP BY
 
 // Export the all_data function
 module.exports = { 
+  getdata,
   averageStats, 
   averageStatsCanine_One, 
   averageStatsCanine_Two, 
