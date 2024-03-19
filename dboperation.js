@@ -1,4 +1,5 @@
 // Import necessary modules
+const { error } = require('console');
 const { query } = require('express');
 const sqlite3 = require('sqlite3');
 
@@ -830,7 +831,7 @@ GROUP BY
 
 async function weeklyAverage_caninethree(weeklyAverageCanineThree) {
   try {
-    const query = `SELECT 
+    const query = `SELECT
     strftime('%Y-%W', date(substr("Date", 7, 4) || '-' || substr("Date", 4, 2) || '-' || substr("Date", 1, 2))) AS Year_Week,
     SUM("Weight(kg)") AS Total_Weight,
     AVG("ActivityLevel(steps)") AS Avg_Activity_Level,
@@ -840,12 +841,12 @@ async function weeklyAverage_caninethree(weeklyAverageCanineThree) {
     SUM("FoodIntake(calories)") AS Total_Food_Intake,
     SUM("WaterIntake(ml)") AS Total_Water_Intake,
     AVG("BreathingRate(breaths/min)") AS Avg_Breathing_Rate
-FROM 
+FROM
     "Canine_Activity_Data"
 WHERE
     DogID = 'CANINE003'
-GROUP BY 
-    Year_Week;` 
+GROUP BY
+    Year_Week;`
     const parameters = weeklyAverageCanineThree;
     return await executeQuery(query, parameters);
   }
@@ -853,6 +854,72 @@ GROUP BY
   console.error("Error executing query:", error);
   throw error;
 }
+}
+
+async function weeklyTotalCalorieBurn_canineone(weeklyTotalCalorieBurn_canineone){
+  try{
+    const query = `SELECT "DogID", "Date", SUM("CalorieBurn") AS "TotalCaloriesBurned"
+    FROM
+      "Canine_Activity_Data"
+    WHERE
+        "DogID" = 'CANINE001'
+    AND
+        "Hour" BETWEEN 0 AND 23
+    AND
+        "Date" IN ('25-12-2023', '26-12-2023', '27-12-2023', '28-12-2023', '29-12-2023', '30-12-2023', '31-12-2023')
+    GROUP BY
+        "DogID", "Date";`
+        const parameters = weeklyTotalCalorieBurn_canineone;
+        return await executeQuery(query, parameters)
+  }
+  catch (error) {
+    console.error("Error executing query:", error);
+    throw error;
+  }
+}
+
+async function weeklyTotalCalorieBurn_canineone(weeklyTotalCalorieBurn_caninetwo){
+  try{
+    const query = `SELECT "DogID", "Date", SUM("CalorieBurn") AS "TotalCaloriesBurned"
+    FROM
+      "Canine_Activity_Data"
+    WHERE
+        "DogID" = 'CANINE002'
+    AND
+        "Hour" BETWEEN 0 AND 23
+    AND
+        "Date" IN ('25-12-2023', '26-12-2023', '27-12-2023', '28-12-2023', '29-12-2023', '30-12-2023', '31-12-2023')
+    GROUP BY
+        "DogID", "Date";`
+        const parameters = weeklyTotalCalorieBurn_caninetwo;
+        return await executeQuery(query, parameters)
+  }
+  catch (error) {
+    console.error("Error executing query:", error);
+    throw error;
+  }
+}
+
+async function weeklyTotalCalorieBurn_canineone(weeklyTotalCalorieBurn_caninethree){
+  try{
+    const query = `SELECT "DogID", "Date", SUM("CalorieBurn") AS "TotalCaloriesBurned"
+    FROM
+      "Canine_Activity_Data"
+    WHERE
+        "DogID" = 'CANINE003'
+    AND
+        "Hour" BETWEEN 0 AND 23
+    AND
+        "Date" IN ('25-12-2023', '26-12-2023', '27-12-2023', '28-12-2023', '29-12-2023', '30-12-2023', '31-12-2023')
+    GROUP BY
+        "DogID", "Date";`
+        const parameters = weeklyTotalCalorieBurn_caninethree;
+        return await executeQuery(query, parameters)
+  }
+  catch (error) {
+    console.error("Error executing query:", error);
+    throw error;
+  }
 }
 
 
