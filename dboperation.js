@@ -128,22 +128,70 @@ async function averageStats(average) {
 
       async function averageEachDay_CanineOne(averageEachDay_canineOne) {
         try {
-          const query = `SELECT
-          DogID,
-          Date,
-          ROUND(AVG("HeartRate(bpm)"), 1) AS average_value_heart_rate,
-          ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
-          ROUND(AVG("Weight(kg)"), 1) AS average_weight,
-          ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
-          ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
-          ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
-          ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
-          ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
-      FROM Canine_Activity_Data 
-      WHERE DogID = 'CANINE001' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
-      GROUP BY DogID, Date
-      ORDER BY CAST(SUBSTR(Date, 7, 4) AS INTEGER), CAST(SUBSTR(Date, 4, 2) AS INTEGER), CAST(SUBSTR(Date, 1, 2) AS INTEGER);
-      `
+          const query = `WITH DogActivity AS (
+            SELECT
+                DogID,
+                Date,
+                ROUND(AVG("HeartRate(bpm)"), 1) AS average_value_heart_rate,
+                ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
+                ROUND(AVG("Weight(kg)"), 1) AS average_weight,
+                ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
+                ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
+                ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
+                ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+                ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
+            FROM 
+                Canine_Activity_Data
+            WHERE
+                DogID = 'CANINE001' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
+            GROUP BY
+                DogID, Date
+        ),
+        DogBehaviour AS (
+            SELECT
+                DogID,
+                Date,
+                ROUND(SUM(
+                    CASE
+                        WHEN BehaviourPattern = 'Walking' THEN 1
+                        ELSE 0
+                    END
+                )) AS totalWalkingHours,
+                ROUND(SUM(
+                    CASE
+                        WHEN BehaviourPattern = 'Sleeping' THEN 1
+                        ELSE 0
+                    END
+                )) AS totalHoursSlept
+            FROM
+                Canine_Activity_Data
+            WHERE
+                DogID = 'CANINE001' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
+            GROUP BY
+                DogID, Date
+        )
+        SELECT
+            DA.DogID,
+            DA.Date,
+            DA.average_value_heart_rate,
+            DA.average_temperature,
+            DA.average_weight,
+            DA.average_breathing,
+            DA.average_calorieBurn,
+            DA.average_activityLevelSteps,
+            DA.average_foodIntake,
+            DA.average_waterIntake,
+            DB.totalWalkingHours,
+            DB.totalHoursSlept
+        FROM
+            DogActivity AS DA
+        JOIN
+            DogBehaviour AS DB ON DA.DogID = DB.DogID AND DA.Date = DB.Date
+        ORDER BY
+            CAST(SUBSTR(DA.Date, 7, 4) AS INTEGER),
+            CAST(SUBSTR(DA.Date, 4, 2) AS INTEGER),
+            CAST(SUBSTR(DA.Date, 1, 2) AS INTEGER);
+        `
           // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
           // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
           
@@ -161,22 +209,70 @@ async function averageStats(average) {
 
         async function averageEachDay_CanineTwo(averageEachDay_canineTwo) {
           try {
-            const query = `SELECT
-            DogID,
-            Date,
-            ROUND(AVG("HeartRate(bpm)"), 1) AS average_value_heart_rate,
-            ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
-            ROUND(AVG("Weight(kg)"), 1) AS average_weight,
-            ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
-            ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
-            ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
-            ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
-            ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
-        FROM Canine_Activity_Data 
-        WHERE DogID = 'CANINE002' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
-        GROUP BY DogID, Date
-        ORDER BY CAST(SUBSTR(Date, 7, 4) AS INTEGER), CAST(SUBSTR(Date, 4, 2) AS INTEGER), CAST(SUBSTR(Date, 1, 2) AS INTEGER);
-        `
+            const query = `WITH DogActivity AS (
+              SELECT
+                  DogID,
+                  Date,
+                  ROUND(AVG("HeartRate(bpm)"), 1) AS average_value_heart_rate,
+                  ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
+                  ROUND(AVG("Weight(kg)"), 1) AS average_weight,
+                  ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
+                  ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
+                  ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
+                  ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+                  ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
+              FROM 
+                  Canine_Activity_Data
+              WHERE
+                  DogID = 'CANINE001' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
+              GROUP BY
+                  DogID, Date
+          ),
+          DogBehaviour AS (
+              SELECT
+                  DogID,
+                  Date,
+                  ROUND(SUM(
+                      CASE
+                          WHEN BehaviourPattern = 'Walking' THEN 1
+                          ELSE 0
+                      END
+                  )) AS totalWalkingHours,
+                  ROUND(SUM(
+                      CASE
+                          WHEN BehaviourPattern = 'Sleeping' THEN 1
+                          ELSE 0
+                      END
+                  )) AS totalHoursSlept
+              FROM
+                  Canine_Activity_Data
+              WHERE
+                  DogID = 'CANINE002' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
+              GROUP BY
+                  DogID, Date
+          )
+          SELECT
+              DA.DogID,
+              DA.Date,
+              DA.average_value_heart_rate,
+              DA.average_temperature,
+              DA.average_weight,
+              DA.average_breathing,
+              DA.average_calorieBurn,
+              DA.average_activityLevelSteps,
+              DA.average_foodIntake,
+              DA.average_waterIntake,
+              DB.totalWalkingHours,
+              DB.totalHoursSlept
+          FROM
+              DogActivity AS DA
+          JOIN
+              DogBehaviour AS DB ON DA.DogID = DB.DogID AND DA.Date = DB.Date
+          ORDER BY
+              CAST(SUBSTR(DA.Date, 7, 4) AS INTEGER),
+              CAST(SUBSTR(DA.Date, 4, 2) AS INTEGER),
+              CAST(SUBSTR(DA.Date, 1, 2) AS INTEGER);
+          `
             // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
             // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
             
@@ -196,22 +292,70 @@ async function averageStats(average) {
 
           async function averageEachDay_CanineThree(averageEachDay_canineThree) {
             try {
-              const query = `SELECT
-              DogID,
-              Date,
-              ROUND(AVG("HeartRate(bpm)"), 1) AS average_value_heart_rate,
-              ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
-              ROUND(AVG("Weight(kg)"), 1) AS average_weight,
-              ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
-              ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
-              ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
-              ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
-              ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
-          FROM Canine_Activity_Data 
-          WHERE DogID = 'CANINE003' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
-          GROUP BY DogID, Date
-          ORDER BY CAST(SUBSTR(Date, 7, 4) AS INTEGER), CAST(SUBSTR(Date, 4, 2) AS INTEGER), CAST(SUBSTR(Date, 1, 2) AS INTEGER);
-          `
+              const query = `WITH DogActivity AS (
+                SELECT
+                    DogID,
+                    Date,
+                    ROUND(AVG("HeartRate(bpm)"), 1) AS average_value_heart_rate,
+                    ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
+                    ROUND(AVG("Weight(kg)"), 1) AS average_weight,
+                    ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
+                    ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
+                    ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
+                    ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
+                    ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
+                FROM 
+                    Canine_Activity_Data
+                WHERE
+                    DogID = 'CANINE001' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
+                GROUP BY
+                    DogID, Date
+            ),
+            DogBehaviour AS (
+                SELECT
+                    DogID,
+                    Date,
+                    ROUND(SUM(
+                        CASE
+                            WHEN BehaviourPattern = 'Walking' THEN 1
+                            ELSE 0
+                        END
+                    )) AS totalWalkingHours,
+                    ROUND(SUM(
+                        CASE
+                            WHEN BehaviourPattern = 'Sleeping' THEN 1
+                            ELSE 0
+                        END
+                    )) AS totalHoursSlept
+                FROM
+                    Canine_Activity_Data
+                WHERE
+                    DogID = 'CANINE003' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
+                GROUP BY
+                    DogID, Date
+            )
+            SELECT
+                DA.DogID,
+                DA.Date,
+                DA.average_value_heart_rate,
+                DA.average_temperature,
+                DA.average_weight,
+                DA.average_breathing,
+                DA.average_calorieBurn,
+                DA.average_activityLevelSteps,
+                DA.average_foodIntake,
+                DA.average_waterIntake,
+                DB.totalWalkingHours,
+                DB.totalHoursSlept
+            FROM
+                DogActivity AS DA
+            JOIN
+                DogBehaviour AS DB ON DA.DogID = DB.DogID AND DA.Date = DB.Date
+            ORDER BY
+                CAST(SUBSTR(DA.Date, 7, 4) AS INTEGER),
+                CAST(SUBSTR(DA.Date, 4, 2) AS INTEGER),
+                CAST(SUBSTR(DA.Date, 1, 2) AS INTEGER);
+            `
               // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
               // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
               
