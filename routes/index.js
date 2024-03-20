@@ -357,7 +357,7 @@ router.get("/weeklyAverageCanineTwo", function (req, res, next) {
 });
 
 router.get("/weeklyAverageCanineThree", function (req, res, next) {
-  const weeklyAverageCanineThree = req.query; 
+  const weeklyAverageCanineThree = req.query;
   sql.weeklyAverage_caninethree(weeklyAverageCanineThree).then((result) => {
     res.json(result);
   }).catch((error) => {
@@ -366,5 +366,39 @@ router.get("/weeklyAverageCanineThree", function (req, res, next) {
     res.status(500).json({ error: "Internal Server Error" });
   });
 });
+
+router.get("/weeklyTotalCalorieBurn_canineone", function (req, res, next) {
+  const weekly_Total_Calorie_Burn_canineone = req.query;
+  sql.weeklyTotalCalorieBurn_canineone(weekly_Total_Calorie_Burn_canineone).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
+router.get("/weeklyTotalCalorieBurn_caninetwo", function (req, res, next) {
+  const weekly_Total_Calorie_Burn_caninetwo = req.query;
+  sql.weeklyTotalCalorieBurn_caninetwo(weekly_Total_Calorie_Burn_caninetwo).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
+router.get("/weeklyTotalCalorieBurn_caninethree", function (req, res, next) {
+  const weekly_Total_Calorie_Burn_caninethree = req.query;
+  sql.weeklyTotalCalorieBurn_caninethree(weekly_Total_Calorie_Burn_caninethree).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
 
 module.exports = router;
