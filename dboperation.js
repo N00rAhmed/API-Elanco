@@ -247,7 +247,7 @@ async function averageStats(average) {
               FROM 
                   Canine_Activity_Data
               WHERE
-                  DogID = 'CANINE001' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
+                  DogID = 'CANINE002' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
               GROUP BY
                   DogID, Date
           ),
@@ -330,7 +330,7 @@ async function averageStats(average) {
                 FROM 
                     Canine_Activity_Data
                 WHERE
-                    DogID = 'CANINE001' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
+                    DogID = 'CANINE003' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
                 GROUP BY
                     DogID, Date
             ),
