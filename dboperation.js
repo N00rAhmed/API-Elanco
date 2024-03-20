@@ -878,7 +878,7 @@ async function weeklyTotalCalorieBurn_canineone(weeklyTotalCalorieBurn_canineone
   }
 }
 
-async function weeklyTotalCalorieBurn_canineone(weeklyTotalCalorieBurn_caninetwo){
+async function weeklyTotalCalorieBurn_caninetwo(weeklyTotalCalorieBurn_caninetwo){
   try{
     const query = `SELECT "DogID", "Date", SUM("CalorieBurn") AS "TotalCaloriesBurned"
     FROM
@@ -900,7 +900,7 @@ async function weeklyTotalCalorieBurn_canineone(weeklyTotalCalorieBurn_caninetwo
   }
 }
 
-async function weeklyTotalCalorieBurn_canineone(weeklyTotalCalorieBurn_caninethree){
+async function weeklyTotalCalorieBurn_caninethree(weeklyTotalCalorieBurn_caninethree){
   try{
     const query = `SELECT "DogID", "Date", SUM("CalorieBurn") AS "TotalCaloriesBurned"
     FROM
@@ -955,5 +955,8 @@ module.exports = {
   seasonAverage_caninethree,
   weeklyAverage_canineone,
   weeklyAverage_caninetwo,
-  weeklyAverage_caninethree
+  weeklyAverage_caninethree,
+  weeklyTotalCalorieBurn_canineone,
+  weeklyTotalCalorieBurn_caninetwo,
+  weeklyTotalCalorieBurn_caninethree
 };
