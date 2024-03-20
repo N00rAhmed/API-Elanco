@@ -1,6 +1,7 @@
 // Import necessary modules
 var config = require("./dbconfig");
 
+const { error } = require('console');
 const { query } = require('express');
 const sqlite3 = require('sqlite3');
 
@@ -37,7 +38,6 @@ console.log(" mathus-error :" + error);
      });
   });
  }
- 
 
 
 
@@ -54,7 +54,7 @@ async function averageStats(average) {
     FROM Canine_Activity_Data;`
     // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
     // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
-    
+
 // SELECT AVG("HeartRate(bpm)") AS average_value FROM Canine_Activity_Data;
 
     const parameters = average;
@@ -81,10 +81,10 @@ async function averageStats(average) {
       FROM Canine_Activity_Data WHERE DogID = 'CANINE001';`
       // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
       // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
-      
+
   // SELECT AVG("HeartRate(bpm)") AS average_value FROM Canine_Activity_Data;
-  
-      const parameters = average_canineOne;
+
+    const parameters = average_canineOne;
       return await executeQuery(query, parameters);
     } catch (error) {
       console.error("Error executing query:", error);
@@ -92,7 +92,6 @@ async function averageStats(average) {
     }
     }
 
-    
     async function averageStatsCanine_Two(average_canineTwo) {
       try {
         const query = `SELECT
@@ -104,7 +103,7 @@ async function averageStats(average) {
         ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
         ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
         ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
-  
+
         FROM Canine_Activity_Data WHERE DogID = 'CANINE002';`
         // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
         // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
@@ -119,9 +118,6 @@ async function averageStats(average) {
       }
     }
 
-
-
-
     async function averageStatsCanine_Three(average_canineThree) {
       try {
         const query = `SELECT
@@ -132,13 +128,12 @@ async function averageStats(average) {
         ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
         ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
         ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
-        ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
+        ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
         FROM Canine_Activity_Data WHERE DogID = 'CANINE003';`
         // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
         // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
-        
     // SELECT AVG("HeartRate(bpm)") AS average_value FROM Canine_Activity_Data;
-    
+
         const parameters = average_canineThree;
         return await executeQuery(query, parameters);
       } catch (error) {
@@ -163,7 +158,7 @@ async function averageStats(average) {
                 ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
                 ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
                 ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
-            FROM 
+            FROM
                 Canine_Activity_Data
             WHERE
                 DogID = 'CANINE001' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
@@ -217,9 +212,9 @@ async function averageStats(average) {
         `
           // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
           // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
-          
+
       // SELECT AVG("HeartRate(bpm)") AS average_value FROM Canine_Activity_Data;
-      
+
           const parameters = averageEachDay_canineOne;
           return await executeQuery(query, parameters);
         } catch (error) {
@@ -227,8 +222,6 @@ async function averageStats(average) {
           throw error;
         }
         }
-  
-  
 
         async function averageEachDay_CanineTwo(averageEachDay_canineTwo) {
           try {
@@ -244,7 +237,7 @@ async function averageStats(average) {
                   ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
                   ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
                   ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
-              FROM 
+              FROM
                   Canine_Activity_Data
               WHERE
                   DogID = 'CANINE001' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
@@ -298,9 +291,9 @@ async function averageStats(average) {
           `
             // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
             // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
-            
+
         // SELECT AVG("HeartRate(bpm)") AS average_value FROM Canine_Activity_Data;
-        
+
             const parameters = averageEachDay_canineTwo;
             return await executeQuery(query, parameters);
           } catch (error) {
@@ -308,10 +301,6 @@ async function averageStats(average) {
             throw error;
           }
           }
-
-
-
-
 
           async function averageEachDay_CanineThree(averageEachDay_canineThree) {
             try {
@@ -327,7 +316,7 @@ async function averageStats(average) {
                     ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
                     ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
                     ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
-                FROM 
+                FROM
                     Canine_Activity_Data
                 WHERE
                     DogID = 'CANINE001' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
@@ -381,9 +370,9 @@ async function averageStats(average) {
             `
               // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
               // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
-              
+
           // SELECT AVG("HeartRate(bpm)") AS average_value FROM Canine_Activity_Data;
-          
+
               const parameters = averageEachDay_canineThree;
               return await executeQuery(query, parameters);
             } catch (error) {
@@ -405,7 +394,7 @@ async function averageStats(average) {
                 throw error;
               }
             }
-      
+
             async function HighAndLowHeartRate_Two(HeartRate_CanineTwo) {
               try {
                 const query = `
@@ -419,7 +408,7 @@ async function averageStats(average) {
                 throw error;
               }
             }
-      
+
             async function HighAndLowHeartRate_Three(HeartRate_CanineThree) {
               try {
                 const query = `
@@ -433,13 +422,13 @@ async function averageStats(average) {
                 throw error;
               }
             }
-      
+
             async function HeartRateToSleep_One(HeartToSleep_CanineOne) {
               try {
                 const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
                 FROM Canine_Activity_Data
                 WHERE DogID = 'CANINE001' AND BehaviourPattern = 'Sleeping'
-                GROUP BY DogID, BehaviourPattern;` 
+                GROUP BY DogID, BehaviourPattern;`
                 const parameters = HeartToSleep_CanineOne;
                 return await executeQuery(query, parameters);
               }
@@ -454,7 +443,7 @@ async function averageStats(average) {
               const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
               FROM Canine_Activity_Data
               WHERE DogID = 'CANINE002' AND BehaviourPattern = 'Sleeping'
-              GROUP BY DogID, BehaviourPattern;` 
+              GROUP BY DogID, BehaviourPattern;`
               const parameters = HeartToSleep_CanineTwo;
               return await executeQuery(query, parameters);
             }
@@ -469,7 +458,7 @@ async function averageStats(average) {
             const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
             FROM Canine_Activity_Data
             WHERE DogID = 'CANINE003' AND BehaviourPattern = 'Sleeping'
-            GROUP BY DogID, BehaviourPattern;` 
+            GROUP BY DogID, BehaviourPattern;`
             const parameters = HeartToSleep_CanineThree;
             return await executeQuery(query, parameters);
           }
@@ -478,13 +467,12 @@ async function averageStats(average) {
           throw error;
         }
       }
-      
           async function HeartRateToWalk_One(HeartToWalk_CanineOne) {
             try {
               const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
               FROM Canine_Activity_Data
               WHERE DogID = 'CANINE001' AND BehaviourPattern = 'Walking'
-              GROUP BY DogID, BehaviourPattern;` 
+              GROUP BY DogID, BehaviourPattern;`
               const parameters = HeartToWalk_CanineOne;
               return await executeQuery(query, parameters);
             }
@@ -499,7 +487,7 @@ async function averageStats(average) {
             const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
             FROM Canine_Activity_Data
             WHERE DogID = 'CANINE002' AND BehaviourPattern = 'Walking'
-            GROUP BY DogID, BehaviourPattern;` 
+            GROUP BY DogID, BehaviourPattern;`
             const parameters = HeartToWalk_CanineTwo;
             return await executeQuery(query, parameters);
           }
@@ -514,7 +502,7 @@ async function averageStats(average) {
           const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
           FROM Canine_Activity_Data
           WHERE DogID = 'CANINE003' AND BehaviourPattern = 'Walking'
-          GROUP BY DogID, BehaviourPattern;` 
+          GROUP BY DogID, BehaviourPattern;`
           const parameters = HeartToWalk_CanineThree;
           return await executeQuery(query, parameters);
         }
@@ -523,13 +511,12 @@ async function averageStats(average) {
         throw error;
       }
     }
-  
         async function HeartRateToNormal_One(HeartToNormal_CanineOne) {
           try {
             const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
             FROM Canine_Activity_Data
             WHERE DogID = 'CANINE001' AND BehaviourPattern = 'Normal'
-            GROUP BY DogID, BehaviourPattern;` 
+            GROUP BY DogID, BehaviourPattern;`
             const parameters = HeartToNormal_CanineOne;
             return await executeQuery(query, parameters);
           }
@@ -544,7 +531,7 @@ async function averageStats(average) {
           const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
           FROM Canine_Activity_Data
           WHERE DogID = 'CANINE002' AND BehaviourPattern = 'Normal'
-          GROUP BY DogID, BehaviourPattern;` 
+          GROUP BY DogID, BehaviourPattern;`
           const parameters = HeartToNormal_CanineTwo;
           return await executeQuery(query, parameters);
         }
@@ -559,7 +546,7 @@ async function averageStats(average) {
         const query = `SELECT DogID, BehaviourPattern, ROUND(AVG("HeartRate(bpm)"), 1) AS avg_heart_rate
         FROM Canine_Activity_Data
         WHERE DogID = 'CANINE003' AND BehaviourPattern = 'Normal'
-        GROUP BY DogID, BehaviourPattern;` 
+        GROUP BY DogID, BehaviourPattern;`
         const parameters = HeartToNormal_CanineThree;
         return await executeQuery(query, parameters);
       }
@@ -620,7 +607,6 @@ async function averageStats(average) {
       DogID
     ORDER BY
       DogID;
-    
     `
       const parameters = behaviourPatternActionsAverageCanineOne;
       return await executeQuery(query, parameters);
@@ -682,7 +668,6 @@ async function BehaviourPatternActionsAverageCanineTwo(behaviourPatternActionsAv
     DogID
   ORDER BY
     DogID;
-  
   `
     const parameters = behaviourPatternActionsAverageCanineTwo;
     return await executeQuery(query, parameters);
@@ -692,9 +677,6 @@ async function BehaviourPatternActionsAverageCanineTwo(behaviourPatternActionsAv
   throw error;
 }
 }
-
-
-
 
 async function BehaviourPatternActionsAverageCanineThree(behaviourPatternActionsAverageCanineThree) {
   try {
@@ -745,7 +727,6 @@ async function BehaviourPatternActionsAverageCanineThree(behaviourPatternActions
     DogID
   ORDER BY
     DogID;
-  
   `
     const parameters = behaviourPatternActionsAverageCanineThree;
     return await executeQuery(query, parameters);
@@ -769,13 +750,12 @@ async function monthAverage_canineone(MonthlyAverageCanineOne) {
     ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
     ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
     ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
-    ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
-FROM Canine_Activity_Data 
+    ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
+FROM Canine_Activity_Data
 WHERE DogID = 'CANINE001' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
 GROUP BY DogID, Month_Year
 ORDER BY SUBSTR(Date, 7, 4), SUBSTR(Date, 4, 2);;
-
-` 
+`
     const parameters = MonthlyAverageCanineOne;
     return await executeQuery(query, parameters);
   }
@@ -797,13 +777,12 @@ async function monthAverage_caninetwo(MonthlyAverageCanineTwo) {
     ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
     ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
     ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
-    ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
-FROM Canine_Activity_Data 
+    ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
+FROM Canine_Activity_Data
 WHERE DogID = 'CANINE002' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
 GROUP BY DogID, Month_Year
 ORDER BY SUBSTR(Date, 7, 4), SUBSTR(Date, 4, 2);;
-
-` 
+`
     const parameters = MonthlyAverageCanineTwo;
     return await executeQuery(query, parameters);
   }
@@ -825,13 +804,12 @@ async function monthAverage_caninethree(MonthlyAverageCanineThree) {
     ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
     ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
     ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
-    ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake  
-FROM Canine_Activity_Data 
+    ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
+FROM Canine_Activity_Data
 WHERE DogID = 'CANINE003' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
 GROUP BY DogID, Month_Year
 ORDER BY SUBSTR(Date, 7, 4), SUBSTR(Date, 4, 2);;
-
-` 
+`
     const parameters = MonthlyAverageCanineThree;
     return await executeQuery(query, parameters);
   }
@@ -845,7 +823,7 @@ async function seasonAverage_canineone(SeasonAverageCanineOne) {
   try {
     const query = `SELECT
     substr("Date", 7, 4) AS Year,
-    CASE 
+    CASE
         WHEN substr("Date", 4, 2) IN ('12', '01', '02') THEN 'Winter'
         WHEN substr("Date", 4, 2) IN ('03', '04', '05') THEN 'Spring'
         WHEN substr("Date", 4, 2) IN ('06', '07', '08') THEN 'Summer'
@@ -864,7 +842,7 @@ FROM
 WHERE
     DogID = 'CANINE001'
 GROUP BY
-    Year, Season;` 
+    Year, Season;`
     const parameters = SeasonAverageCanineOne;
     return await executeQuery(query, parameters);
   }
@@ -878,7 +856,7 @@ async function seasonAverage_caninetwo(SeasonAverageCanineTwo) {
   try {
     const query = `SELECT
     substr("Date", 7, 4) AS Year,
-    CASE 
+    CASE
         WHEN substr("Date", 4, 2) IN ('12', '01', '02') THEN 'Winter'
         WHEN substr("Date", 4, 2) IN ('03', '04', '05') THEN 'Spring'
         WHEN substr("Date", 4, 2) IN ('06', '07', '08') THEN 'Summer'
@@ -897,7 +875,7 @@ FROM
 WHERE
     DogID = 'CANINE002'
 GROUP BY
-    Year, Season;` 
+    Year, Season;`
     const parameters = SeasonAverageCanineTwo;
     return await executeQuery(query, parameters);
   }
@@ -911,7 +889,7 @@ async function seasonAverage_caninethree(SeasonAverageCanineThree) {
   try {
     const query = `SELECT
     substr("Date", 7, 4) AS Year,
-    CASE 
+    CASE
         WHEN substr("Date", 4, 2) IN ('12', '01', '02') THEN 'Winter'
         WHEN substr("Date", 4, 2) IN ('03', '04', '05') THEN 'Spring'
         WHEN substr("Date", 4, 2) IN ('06', '07', '08') THEN 'Summer'
@@ -930,7 +908,7 @@ FROM
 WHERE
     DogID = 'CANINE003'
 GROUP BY
-    Year, Season;` 
+    Year, Season;`
     const parameters = SeasonAverageCanineThree;
     return await executeQuery(query, parameters);
   }
@@ -943,7 +921,7 @@ GROUP BY
 
 async function weeklyAverage_canineone(weeklyAverageCanineOne) {
   try {
-    const query = `SELECT 
+    const query = `SELECT
     strftime('%Y-%W', date(substr("Date", 7, 4) || '-' || substr("Date", 4, 2) || '-' || substr("Date", 1, 2))) AS Year_Week,
     SUM("Weight(kg)") AS Total_Weight,
     AVG("ActivityLevel(steps)") AS Avg_Activity_Level,
@@ -953,12 +931,12 @@ async function weeklyAverage_canineone(weeklyAverageCanineOne) {
     SUM("FoodIntake(calories)") AS Total_Food_Intake,
     SUM("WaterIntake(ml)") AS Total_Water_Intake,
     AVG("BreathingRate(breaths/min)") AS Avg_Breathing_Rate
-FROM 
+FROM
     "Canine_Activity_Data"
 WHERE
     DogID = 'CANINE001'
-GROUP BY 
-    Year_Week;` 
+GROUP BY
+    Year_Week;`
     const parameters = weeklyAverageCanineOne;
     return await executeQuery(query, parameters);
   }
@@ -970,7 +948,7 @@ GROUP BY
 
 async function weeklyAverage_caninetwo(weeklyAverageCanineTwo) {
   try {
-    const query = `SELECT 
+    const query = `SELECT
     strftime('%Y-%W', date(substr("Date", 7, 4) || '-' || substr("Date", 4, 2) || '-' || substr("Date", 1, 2))) AS Year_Week,
     SUM("Weight(kg)") AS Total_Weight,
     AVG("ActivityLevel(steps)") AS Avg_Activity_Level,
@@ -980,12 +958,12 @@ async function weeklyAverage_caninetwo(weeklyAverageCanineTwo) {
     SUM("FoodIntake(calories)") AS Total_Food_Intake,
     SUM("WaterIntake(ml)") AS Total_Water_Intake,
     AVG("BreathingRate(breaths/min)") AS Avg_Breathing_Rate
-FROM 
+FROM
     "Canine_Activity_Data"
 WHERE
     DogID = 'CANINE002'
-GROUP BY 
-    Year_Week;` 
+GROUP BY
+    Year_Week;`
     const parameters = weeklyAverageCanineTwo;
     return await executeQuery(query, parameters);
   }
@@ -997,7 +975,7 @@ GROUP BY
 
 async function weeklyAverage_caninethree(weeklyAverageCanineThree) {
   try {
-    const query = `SELECT 
+    const query = `SELECT
     strftime('%Y-%W', date(substr("Date", 7, 4) || '-' || substr("Date", 4, 2) || '-' || substr("Date", 1, 2))) AS Year_Week,
     SUM("Weight(kg)") AS Total_Weight,
     AVG("ActivityLevel(steps)") AS Avg_Activity_Level,
@@ -1007,12 +985,12 @@ async function weeklyAverage_caninethree(weeklyAverageCanineThree) {
     SUM("FoodIntake(calories)") AS Total_Food_Intake,
     SUM("WaterIntake(ml)") AS Total_Water_Intake,
     AVG("BreathingRate(breaths/min)") AS Avg_Breathing_Rate
-FROM 
+FROM
     "Canine_Activity_Data"
 WHERE
     DogID = 'CANINE003'
-GROUP BY 
-    Year_Week;` 
+GROUP BY
+    Year_Week;`
     const parameters = weeklyAverageCanineThree;
     return await executeQuery(query, parameters);
   }
@@ -1022,16 +1000,82 @@ GROUP BY
 }
 }
 
+async function weeklyTotalCalorieBurn_canineone(weeklyTotalCalorieBurn_canineone){
+  try{
+    const query = `SELECT "DogID", "Date", SUM("CalorieBurn") AS "TotalCaloriesBurned"
+    FROM
+      "Canine_Activity_Data"
+    WHERE
+        "DogID" = 'CANINE001'
+    AND
+        "Hour" BETWEEN 0 AND 23
+    AND
+        "Date" IN ('25-12-2023', '26-12-2023', '27-12-2023', '28-12-2023', '29-12-2023', '30-12-2023', '31-12-2023')
+    GROUP BY
+        "DogID", "Date";`
+        const parameters = weeklyTotalCalorieBurn_canineone;
+        return await executeQuery(query, parameters)
+  }
+  catch (error) {
+    console.error("Error executing query:", error);
+    throw error;
+  }
+}
+
+async function weeklyTotalCalorieBurn_caninetwo(weeklyTotalCalorieBurn_caninetwo){
+  try{
+    const query = `SELECT "DogID", "Date", SUM("CalorieBurn") AS "TotalCaloriesBurned"
+    FROM
+      "Canine_Activity_Data"
+    WHERE
+        "DogID" = 'CANINE002'
+    AND
+        "Hour" BETWEEN 0 AND 23
+    AND
+        "Date" IN ('25-12-2023', '26-12-2023', '27-12-2023', '28-12-2023', '29-12-2023', '30-12-2023', '31-12-2023')
+    GROUP BY
+        "DogID", "Date";`
+        const parameters = weeklyTotalCalorieBurn_caninetwo;
+        return await executeQuery(query, parameters)
+  }
+  catch (error) {
+    console.error("Error executing query:", error);
+    throw error;
+  }
+}
+
+async function weeklyTotalCalorieBurn_caninethree(weeklyTotalCalorieBurn_caninethree){
+  try{
+    const query = `SELECT "DogID", "Date", SUM("CalorieBurn") AS "TotalCaloriesBurned"
+    FROM
+      "Canine_Activity_Data"
+    WHERE
+        "DogID" = 'CANINE003'
+    AND
+        "Hour" BETWEEN 0 AND 23
+    AND
+        "Date" IN ('25-12-2023', '26-12-2023', '27-12-2023', '28-12-2023', '29-12-2023', '30-12-2023', '31-12-2023')
+    GROUP BY
+        "DogID", "Date";`
+        const parameters = weeklyTotalCalorieBurn_caninethree;
+        return await executeQuery(query, parameters)
+  }
+  catch (error) {
+    console.error("Error executing query:", error);
+    throw error;
+  }
+}
+
 
 // Export the all_data function
-module.exports = { 
+module.exports = {
   getdata,
-  averageStats, 
-  averageStatsCanine_One, 
-  averageStatsCanine_Two, 
-  averageStatsCanine_Three, 
-  averageEachDay_CanineOne, 
-  averageEachDay_CanineTwo, 
+  averageStats,
+  averageStatsCanine_One,
+  averageStatsCanine_Two,
+  averageStatsCanine_Three,
+  averageEachDay_CanineOne,
+  averageEachDay_CanineTwo,
   averageEachDay_CanineThree,
   HighAndLowHeartRate_One,
   HighAndLowHeartRate_Two,
@@ -1056,5 +1100,8 @@ module.exports = {
   seasonAverage_caninethree,
   weeklyAverage_canineone,
   weeklyAverage_caninetwo,
-  weeklyAverage_caninethree
+  weeklyAverage_caninethree,
+  weeklyTotalCalorieBurn_canineone,
+  weeklyTotalCalorieBurn_caninetwo,
+  weeklyTotalCalorieBurn_caninethree
 };
