@@ -1067,6 +1067,30 @@ async function weeklyTotalCalorieBurn_caninethree(weeklyTotalCalorieBurn_caninet
 }
 
 
+async function currentTempCanineOne(current_Temp_CanineOne){
+  try{
+    const query = `
+    WITH LatestDate AS (
+      SELECT MAX(Date) AS MaxDate
+      FROM Canine_Activity_Data
+      WHERE DogID = 'CANINE001'
+  )
+  SELECT Date, Hour, MAX("Temperature(C)") AS HighestTemperature, AVG("Temperature(C)") AS AverageTemperature
+  FROM Canine_Activity_Data
+  WHERE DogID = 'CANINE001' AND Date = (SELECT MaxDate FROM LatestDate)
+  GROUP BY Date;  
+  `
+        const parameters = current_Temp_CanineOne;
+        return await executeQuery(query, parameters)
+  }
+  catch (error) {
+    console.error("Error executing query:", error);
+    throw error;
+  }
+}
+
+
+
 // Export the all_data function
 module.exports = {
   getdata,
@@ -1103,5 +1127,6 @@ module.exports = {
   weeklyAverage_caninethree,
   weeklyTotalCalorieBurn_canineone,
   weeklyTotalCalorieBurn_caninetwo,
-  weeklyTotalCalorieBurn_caninethree
+  weeklyTotalCalorieBurn_caninethree,
+  currentTempCanineOne
 };
