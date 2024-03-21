@@ -400,5 +400,16 @@ router.get("/weeklyTotalCalorieBurn_caninethree", function (req, res, next) {
   });
 });
 
+router.get("/currentTempCanineOne", function (req, res, next) {
+  const current_TempCanine_One = req.query;
+  sql.currentTempCanineOne(current_TempCanine_One).then((result) => {
+    res.json(result);
+  }).catch((error) => {
+    // Handle the error appropriately
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+});
+
 
 module.exports = router;
