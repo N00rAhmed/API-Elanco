@@ -74,15 +74,27 @@ async function averageStats(average) {
       ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
       ROUND(AVG("Weight(kg)"), 1) AS average_weight,
       ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
-      ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
       ROUND((SELECT AVG(subquery.steps_sum) 
            FROM (SELECT SUM("ActivityLevel(steps)") AS steps_sum 
                  FROM Canine_Activity_Data 
                  WHERE DogID = 'CANINE001' 
                  AND "ActivityLevel(steps)" > 0 
                  GROUP BY Date) AS subquery), 1) AS average_activityLevelSteps,
-      ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
-      ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
+      ROUND((SELECT AVG(daily_calories_burned) 
+          FROM (SELECT Date, SUM("CalorieBurn") AS daily_calories_burned
+                FROM Canine_Activity_Data 
+                WHERE DogID = 'CANINE001'
+                GROUP BY Date) AS daily_calories), 1) AS average_calorieBurn,
+        ROUND((SELECT AVG(daily_food_intake) 
+          FROM (SELECT Date, SUM("FoodIntake(calories)") AS daily_food_intake
+                FROM Canine_Activity_Data 
+                WHERE DogID = 'CANINE001'
+                GROUP BY Date) AS daily_food), 1) AS average_foodIntake,
+        ROUND((SELECT AVG(daily_water_intake) 
+          FROM (SELECT Date, SUM("WaterIntake(ml)") AS daily_water_intake
+                FROM Canine_Activity_Data 
+                WHERE DogID = 'CANINE001'
+                GROUP BY Date) AS daily_water), 1) AS average_waterIntake
       FROM Canine_Activity_Data WHERE DogID = 'CANINE001';`
       // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
       // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
@@ -111,8 +123,21 @@ async function averageStats(average) {
                  WHERE DogID = 'CANINE002' 
                  AND "ActivityLevel(steps)" > 0 
                  GROUP BY Date) AS subquery), 1) AS average_activityLevelSteps,
-        ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
-        ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
+        ROUND((SELECT AVG(daily_calories_burned) 
+          FROM (SELECT Date, SUM("CalorieBurn") AS daily_calories_burned
+                FROM Canine_Activity_Data 
+                WHERE DogID = 'CANINE002'
+                GROUP BY Date) AS daily_calories), 1) AS average_calorieBurn,
+        ROUND((SELECT AVG(daily_food_intake) 
+          FROM (SELECT Date, SUM("FoodIntake(calories)") AS daily_food_intake
+                FROM Canine_Activity_Data 
+                WHERE DogID = 'CANINE002'
+                GROUP BY Date) AS daily_food), 1) AS average_foodIntake,
+        ROUND((SELECT AVG(daily_water_intake) 
+          FROM (SELECT Date, SUM("WaterIntake(ml)") AS daily_water_intake
+                FROM Canine_Activity_Data 
+                WHERE DogID = 'CANINE002'
+                GROUP BY Date) AS daily_water), 1) AS average_waterIntake
 
         FROM Canine_Activity_Data WHERE DogID = 'CANINE002';`
         // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
@@ -142,8 +167,21 @@ async function averageStats(average) {
                  WHERE DogID = 'CANINE003' 
                  AND "ActivityLevel(steps)" > 0 
                  GROUP BY Date) AS subquery), 1) AS average_activityLevelSteps,
-        ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
-        ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
+        ROUND((SELECT AVG(daily_calories_burned) 
+          FROM (SELECT Date, SUM("CalorieBurn") AS daily_calories_burned
+                FROM Canine_Activity_Data 
+                WHERE DogID = 'CANINE003'
+                GROUP BY Date) AS daily_calories), 1) AS average_calorieBurn,
+        ROUND((SELECT AVG(daily_food_intake) 
+          FROM (SELECT Date, SUM("FoodIntake(calories)") AS daily_food_intake
+                FROM Canine_Activity_Data 
+                WHERE DogID = 'CANINE003'
+                GROUP BY Date) AS daily_food), 1) AS average_foodIntake,
+        ROUND((SELECT AVG(daily_water_intake) 
+          FROM (SELECT Date, SUM("WaterIntake(ml)") AS daily_water_intake
+                FROM Canine_Activity_Data 
+                WHERE DogID = 'CANINE003'
+                GROUP BY Date) AS daily_water), 1) AS average_waterIntake
         FROM Canine_Activity_Data WHERE DogID = 'CANINE003';`
         // ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
         // ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
@@ -173,7 +211,10 @@ async function averageStats(average) {
                 ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
                 ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
                 ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
-                SUM("ActivityLevel(steps)") AS totalSteps
+                SUM("ActivityLevel(steps)") AS totalSteps,
+                SUM("CalorieBurn") AS totalOut,
+                SUM("FoodIntake(calories)") AS totalIn,
+                SUM("WaterIntake(ml)") AS totalwaterIntake
             FROM
                 Canine_Activity_Data
             WHERE
@@ -215,7 +256,10 @@ async function averageStats(average) {
             DA.average_activityLevelSteps,
             DA.average_foodIntake,
             DA.average_waterIntake,
-    DA.totalSteps,
+            DA.totalSteps,
+            DA.totalIn,
+            DA.totalOut,
+            DA.totalWaterIntake,
             DB.totalWalkingHours,
             DB.totalHoursSlept
         FROM
@@ -253,7 +297,10 @@ async function averageStats(average) {
                   ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
                   ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
                   ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
-                  SUM("ActivityLevel(steps)") AS totalSteps
+                  SUM("ActivityLevel(steps)") AS totalSteps,
+                  SUM("CalorieBurn") AS totalOut,
+                  SUM("FoodIntake(calories)") AS totalIn,
+                  SUM("WaterIntake(ml)") AS totalwaterIntake
               FROM
                   Canine_Activity_Data
               WHERE
@@ -295,7 +342,10 @@ async function averageStats(average) {
               DA.average_activityLevelSteps,
               DA.average_foodIntake,
               DA.average_waterIntake,
-      DA.totalSteps,
+              DA.totalSteps,
+              DA.totalIn,
+              DA.totalOut,
+              DA.totalWaterIntake,
               DB.totalWalkingHours,
               DB.totalHoursSlept
           FROM
@@ -333,7 +383,10 @@ async function averageStats(average) {
                     ROUND(AVG("ActivityLevel(steps)"), 1) AS average_activityLevelSteps,
                     ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
                     ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake,
-                    SUM("ActivityLevel(steps)") AS totalSteps
+                    SUM("ActivityLevel(steps)") AS totalSteps,
+                    SUM("CalorieBurn") AS totalOut,
+                    SUM("FoodIntake(calories)") AS totalIn,
+                    SUM("WaterIntake(ml)") AS totalwaterIntake
                 FROM
                     Canine_Activity_Data
                 WHERE
@@ -375,7 +428,10 @@ async function averageStats(average) {
                 DA.average_activityLevelSteps,
                 DA.average_foodIntake,
                 DA.average_waterIntake,
-				DA.totalSteps,
+                DA.totalSteps,
+                DA.totalIn,
+                DA.totalOut,
+                DA.totalWaterIntake,
                 DB.totalWalkingHours,
                 DB.totalHoursSlept
             FROM
@@ -765,7 +821,7 @@ async function monthAverage_canineone(MonthlyAverageCanineOne) {
     ROUND(AVG("Temperature(C)"), 1) AS average_temperature,
     ROUND(AVG("Weight(kg)"), 1) AS average_weight,
     ROUND(AVG("BreathingRate(breaths/min)"), 1) AS average_breathing,
-    ROUND(AVG("CalorieBurn"), 1) AS average_calorieBurn,
+
     ROUND((SELECT AVG(subquery.steps_sum) 
            FROM (SELECT SUM("ActivityLevel(steps)") AS steps_sum 
                  FROM Canine_Activity_Data 
@@ -773,8 +829,31 @@ async function monthAverage_canineone(MonthlyAverageCanineOne) {
                  AND SUBSTR(Date, 1, 7) = SUBSTR(main.Date, 1, 7) 
                  AND "ActivityLevel(steps)" > 0 
                  GROUP BY SUBSTR(Date, 1, 10)) AS subquery), 1) AS average_activityLevelSteps,
-    ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
-    ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
+
+    ROUND((SELECT AVG(subquery.calin_sum) 
+           FROM (SELECT SUM("FoodIntake(calories)") AS calin_sum 
+                 FROM Canine_Activity_Data 
+                 WHERE DogID = main.DogID 
+                 AND SUBSTR(Date, 1, 7) = SUBSTR(main.Date, 1, 7) 
+                 AND "FoodIntake(calories)" > 0 
+                 GROUP BY SUBSTR(Date, 1, 10)) AS subquery), 1) AS average_foodIntake,
+
+    ROUND((SELECT AVG(subquery.calout_sum) 
+           FROM (SELECT SUM("CalorieBurn") AS calout_sum 
+                 FROM Canine_Activity_Data 
+                 WHERE DogID = main.DogID 
+                 AND SUBSTR(Date, 1, 7) = SUBSTR(main.Date, 1, 7) 
+                 AND "CalorieBurn" > 0 
+                 GROUP BY SUBSTR(Date, 1, 10)) AS subquery), 1) AS average_calorieBurn,
+
+    ROUND((SELECT AVG(subquery.water_sum) 
+           FROM (SELECT SUM("WaterIntake(ml)") AS water_sum 
+                 FROM Canine_Activity_Data 
+                 WHERE DogID = main.DogID 
+                 AND SUBSTR(Date, 1, 7) = SUBSTR(main.Date, 1, 7) 
+                 AND "WaterIntake(ml)" > 0 
+                 GROUP BY SUBSTR(Date, 1, 10)) AS subquery), 1) AS average_waterIntake
+
 FROM Canine_Activity_Data main
 WHERE DogID = 'CANINE001' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
 GROUP BY DogID, Month_Year
@@ -807,8 +886,31 @@ async function monthAverage_caninetwo(MonthlyAverageCanineTwo) {
                  AND SUBSTR(Date, 1, 7) = SUBSTR(main.Date, 1, 7) 
                  AND "ActivityLevel(steps)" > 0 
                  GROUP BY SUBSTR(Date, 1, 10)) AS subquery), 1) AS average_activityLevelSteps,
-    ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
-    ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
+
+    ROUND((SELECT AVG(subquery.calin_sum) 
+           FROM (SELECT SUM("FoodIntake(calories)") AS calin_sum 
+                 FROM Canine_Activity_Data 
+                 WHERE DogID = main.DogID 
+                 AND SUBSTR(Date, 1, 7) = SUBSTR(main.Date, 1, 7) 
+                 AND "FoodIntake(calories)" > 0 
+                 GROUP BY SUBSTR(Date, 1, 10)) AS subquery), 1) AS average_foodIntake,
+
+    ROUND((SELECT AVG(subquery.calout_sum) 
+           FROM (SELECT SUM("CalorieBurn") AS calout_sum 
+                 FROM Canine_Activity_Data 
+                 WHERE DogID = main.DogID 
+                 AND SUBSTR(Date, 1, 7) = SUBSTR(main.Date, 1, 7) 
+                 AND "CalorieBurn" > 0 
+                 GROUP BY SUBSTR(Date, 1, 10)) AS subquery), 1) AS average_calorieBurn,
+
+    ROUND((SELECT AVG(subquery.water_sum) 
+           FROM (SELECT SUM("WaterIntake(ml)") AS water_sum 
+                 FROM Canine_Activity_Data 
+                 WHERE DogID = main.DogID 
+                 AND SUBSTR(Date, 1, 7) = SUBSTR(main.Date, 1, 7) 
+                 AND "WaterIntake(ml)" > 0 
+                 GROUP BY SUBSTR(Date, 1, 10)) AS subquery), 1) AS average_waterIntake
+
 FROM Canine_Activity_Data main
 WHERE DogID = 'CANINE002' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
 GROUP BY DogID, Month_Year
@@ -841,8 +943,31 @@ async function monthAverage_caninethree(MonthlyAverageCanineThree) {
                  AND SUBSTR(Date, 1, 7) = SUBSTR(main.Date, 1, 7) 
                  AND "ActivityLevel(steps)" > 0 
                  GROUP BY SUBSTR(Date, 1, 10)) AS subquery), 1) AS average_activityLevelSteps,
-    ROUND(AVG("FoodIntake(calories)"), 1) AS average_foodIntake,
-    ROUND(AVG("WaterIntake(ml)"), 1) AS average_waterIntake
+
+    ROUND((SELECT AVG(subquery.calin_sum) 
+           FROM (SELECT SUM("FoodIntake(calories)") AS calin_sum 
+                 FROM Canine_Activity_Data 
+                 WHERE DogID = main.DogID 
+                 AND SUBSTR(Date, 1, 7) = SUBSTR(main.Date, 1, 7) 
+                 AND "FoodIntake(calories)" > 0 
+                 GROUP BY SUBSTR(Date, 1, 10)) AS subquery), 1) AS average_foodIntake,
+
+    ROUND((SELECT AVG(subquery.calout_sum) 
+           FROM (SELECT SUM("CalorieBurn") AS calout_sum 
+                 FROM Canine_Activity_Data 
+                 WHERE DogID = main.DogID 
+                 AND SUBSTR(Date, 1, 7) = SUBSTR(main.Date, 1, 7) 
+                 AND "CalorieBurn" > 0 
+                 GROUP BY SUBSTR(Date, 1, 10)) AS subquery), 1) AS average_calorieBurn,
+
+    ROUND((SELECT AVG(subquery.water_sum) 
+           FROM (SELECT SUM("WaterIntake(ml)") AS water_sum 
+                 FROM Canine_Activity_Data 
+                 WHERE DogID = main.DogID 
+                 AND SUBSTR(Date, 1, 7) = SUBSTR(main.Date, 1, 7) 
+                 AND "WaterIntake(ml)" > 0 
+                 GROUP BY SUBSTR(Date, 1, 10)) AS subquery), 1) AS average_waterIntake
+
 FROM Canine_Activity_Data main
 WHERE DogID = 'CANINE003' AND Date BETWEEN '01-01-2021' AND '31-12-2023'
 GROUP BY DogID, Month_Year
