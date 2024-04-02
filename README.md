@@ -2,7 +2,7 @@
 ## Introduction
 This repository is the API for the User Interface, this api allows to query specific data from the SQL database to an endpoint where it will then be displayed in an express page. This will then allow the front-end to access the specific data for renderring on the UI. 
 
-User Interface: https://github.com/ELias020Ali/Elanco-UI
+User Interface: https://github.com/N00rAhmed/Elanco-UI
 
 ### Techstack
 SQLite | Node.JS | Express.JS
